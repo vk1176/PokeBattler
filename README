@@ -1,0 +1,11 @@
+*** This project is in development and as such is nowhere near complete. *** 
+
+This is a "just for fun" kind of project that seeks to simulate gameplay from the Pokemon video game series. If you're not familiar with the games, your enjoyment of this simulation will be significantly reduced.
+
+Players simply select a difficulty, then proceed to battle an AI of the selected difficulty with standard Pokemon battle rules, wherein a player can select an attack or switch Pokemon each turn. 
+
+To install locally, one only needs Node.js. Simply download the repo, and install the Node dependencies (in the event that the save does not get them all, the only dependencies are Sqlite, Express, and Axios). 
+
+From here, one only needs to run "npm start" (server.js is the entrypoint, should that fail). Note that the app uses a local Sqlite database, preloaded in the db folder. As such, it should be ready to go right away, but if not, one needs to run database.js. Regardless, after this, one only needs to access port 8080 while the server is running to play.
+
+database.js should ONLY be run if the database gives errors. database.js will take an ungodly amount of time to finish loading, upwards of 10 minutes. 

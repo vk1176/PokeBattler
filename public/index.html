@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport">
+    <title>Poke Battler</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link rel="stylesheet" href="style.css">
+
+  </head>
+  <body>      
+
+    <!-- Loading screen div; displays while everything loads then vanishes -->
+    <div id="home">   
+      <div id="homeLeft">
+        <div id="logo"><h1>PokeBattler</h1></div>
+        <div id="mainDesc">
+          <p>This is a ranomized Pokemon battle simulator. If that doesn't mean anything to you, then honestly, you're probably not going to get that much out of this app.</p>
+          <p>But if it does, then welcome! You'll be given a randomized party of 6 Pokemon, as does your AI opponent, and you can fight to the finish. Select your difficulty on the right, and have fun! Or don't, I'm not your boss.</p>
+        </div>
+        <div id="lowerHome">
+          <div id="homeIcon"></div>
+          <div id="tipBox">
+            <div id="tip"></div>
+            <button onClick="changeTips()">Next</button>
+          </div>
+        </div>
+      </div>
+      <div id="homeRight">
+        
+          <div class="difficulty" id="beginner">
+            <div class="radIcon">
+              <label class="radio">
+                <input type="radio" name="difficulty" value=0>
+              </label>
+            </div>
+            <div class="diffTitle">
+              Beginner
+            </div>
+            <div class="diffDesc">
+              Don't know what you're doing? Well, in this mode, neither does the opponent. They'll just pick moves at random. Be warned though, as luck can be cruel.
+            </div>
+          </div>
+
+          <div class="difficulty" id="easy">
+            <div class="radIcon">
+              <label class="radio">
+                <input type="radio" name="difficulty" value=1 checked> 
+              </label>
+            </div>
+            <div class="diffTitle">
+              Easy
+            </div>
+            <div class="diffDesc">
+              In this mode the opponent has a thought process. Is it a good one? No, not usually; they'll only use damaging moves.
+            </div>
+          </div>
+
+          <div class="difficulty" id="normal">
+            <div class="radIcon">
+              <label class="radio">
+                <input type="radio" name="difficulty" value=2>
+              </label>
+            </div>
+            <div class="diffTitle">
+              Normal
+            </div>
+            <div class="diffDesc">
+              Things become a lot trickier in this mode, as the opponent will not hesitate to use some interesting, non-damaging moves from time to time. 
+            </div>
+          </div>
+
+          <div class="difficulty" id="hard">
+            <div class="radIcon">
+              <label class="radio">
+                <input type="radio" name="difficulty" value=3>
+              </label>
+            </div>
+            <div class="diffTitle">
+              Hard
+            </div>
+            <div class="diffDesc">
+              Finally! A worthy opponent! Your battle will be legendary! This opponent battles just like a veteran would. Damaging moves, status moves, strategical retreats... nothing is off the table here. 
+            </div>
+          </div>
+
+          <div class="difficulty" id="unfair">
+            <div class="radIcon">
+              <label class="radio">
+                <input type="radio" name="difficulty" value=4>
+              </label>
+            </div>
+            <div class="diffTitle">
+              Unfair
+            </div>
+            <div class="diffDesc">
+              I won't lie to you, this opponent cheats. They "predict" your moves with perfect accuracy. Fair? No. Fun? Possibly.
+            </div>
+          </div>
+
+          <div class="difficulty" id="boss">
+            <div class="radIcon">
+              <label class="radio">
+                <input type="radio" name="difficulty" value=5>
+              </label>
+            </div>
+            <div class="diffTitle">
+              Boss
+            </div>
+            <div class="diffDesc">
+              This opponent won't even face you until you've proven yourself. And once you have, you might find that you wish you hadn't. His party isn't randomized, but everything else about this fight sucks. 
+            </div>
+          </div>  
+        
+        <div id="start">
+          <button class="startButton" onclick = "begin(false)">New</button>
+          <button class="startButton" onclick = "begin(true)">Load</button>
+        </div>
+
+      </div>     
+    </div>
+
+    <!-- Main container div -->
+    <div id = "bg">
+
+      <!-- Left half of screen; control panel -->
+      <div id="left">
+
+        <!-- Actual Display -->
+        <div id="battleScreen">
+
+          <!-- Left bar; Sidebars hold trainer icons -->
+          <div class="sidebar">
+            <div class="unknownIcon" onclick="swap(activePlayer, player[0])"id="pkmn1"></div>
+            <div class="unknownIcon" onclick="swap(activePlayer, player[1])"id="pkmn2"></div>
+            <div class="unknownIcon" onclick="swap(activePlayer, player[2])"id="pkmn3"></div>
+            <div class="unknownIcon" onclick="swap(activePlayer, player[3])"id="pkmn4"></div>
+            <div class="unknownIcon" onclick="swap(activePlayer, player[4])"id="pkmn5"></div>
+            <div class="unknownIcon" onclick="swap(activePlayer, player[5])"id="pkmn6"></div>
+            <div class="trainerIcon"id="playerTrainer"><img class = "person" src="assets/trainers/player.png"/></div>
+          </div>
+
+          <!-- Actual real main display -->
+          <div class="main">
+
+            <!-- Card for active Pokemon; opponent -->
+            <div class="card" id="oppcard"></div>
+
+            <!-- Pokemon icon -->
+            <div class="pokemon" id="oppMon"></div>
+
+            <!-- Begin symmetric allocation of player assets-->
+            <div class="blank"></div>
+
+            <!-- Pokemon icon, player -->
+            <div class="pokemon" id="pMon"></div>
+
+            <!-- Player card -->
+            <div class="card" id="pcard"></div>
+
+          </div>
+
+          <!-- Sidebar for opponents -->
+          <div class="sidebar">
+            <div class="trainerIcon" id="enemyTrainer"></div>
+            <div class="unknownIcon" id="pkmn7"></div>
+            <div class="unknownIcon" id="pkmn8"></div>
+            <div class="unknownIcon" id="pkmn9"></div>
+            <div class="unknownIcon" id="pkmn10"></div>
+            <div class="unknownIcon" id="pkmn11"></div>
+            <div class="unknownIcon" id="pkmn12"></div>
+          </div>
+        </div>  
+
+        <!-- Bottom area; player control area-->
+        <div id="info" >
+          
+          <!-- Moves -->
+          <div id="buttBox">           
+          </div>
+
+          <!-- Idk yet lol -->
+          <!-- <div class="log" id="bottomLog">
+          </div> -->
+          
+        </div>       
+      </div>
+
+      <!-- Rightmost text log -->
+      <div id="right">
+        <div class="log" id="sideLog"></div>
+        <div id="otherButtBox"></div>
+      </div>
+
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+    <script src="tips.js"></script>
+    <script src="move_banlist.js"></script>
+    <script src="card.js"></script>
+    <script src="setup.js"></script>
+    <script src="ai.js"></script>
+    <script src="battle.js"></script>
+    <script src="app.js"></script> 
+  </body>
+</html>
